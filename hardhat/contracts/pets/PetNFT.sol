@@ -6,15 +6,19 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 contract PetNFT is ERC721URIStorage {
   uint private _tokenIds;
 
-  constructor() ERC721("Virtual Vista Pets", "VVP") {}
+  mapping(address => Pet) public userPet;
 
-  function mint(address _to) public returns (uint256) {
-    _mint(_to, _tokenIds);
-    _tokenIds++;
-    return _tokenIds;
+  struct Pet {
+    uint id;
+    string name;
   }
 
-  function setURL(uint256 _id, string memory _tokenURI_) public {
-    _setTokenURI(_id, _tokenURI_);
+  constructor() ERC721("Virtual Vista Pets", "VVP") {}
+
+  function createAndMintPet(address _to, string memory _tokenURI, string memory _name) public {
+    _tokenIds++;
+    _mint(_to, _tokenIds);
+    _setTokenURI(_tokenIds, _tokenURI);
+    userPet[msg.sender] = Pet(_tokenIds, _name);
   }
 }
