@@ -13,7 +13,7 @@ module.exports = async ({ deployments }) => {
     const chainId = network.config.chainId
     // const tokensToBeMinted = networkConfig[chainId]["tokensToBeMinted"]
 
-    const cryptoCat = await deploy("CryptoCat", {
+    const cryptoCat = await deploy("PetNFT", {
         from: wallet.address,
         args: [],
         log: true,
