@@ -1,6 +1,10 @@
 'use client'
 
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react'
+import {
+  filecoin,
+  filecoinCalibration
+} from 'wagmi/chains'
 
 // 1. Get projectId from https://cloud.walletconnect.com
 const projectId = 'YOUR_PROJECT_ID'
@@ -12,6 +16,14 @@ const mainnet = {
   currency: 'ETH',
   explorerUrl: 'https://etherscan.io',
   rpcUrl: 'https://cloudflare-eth.com'
+}
+
+const filecoinCalibrationTest = {
+  chainId: filecoinCalibration.id,
+  name: filecoinCalibration.name,
+  currency: 'tFIL',
+  explorerUrl: 'https://calibration.filfox.info/en',
+  rpcUrl: filecoinCalibration.rpcUrls.default.http
 }
 
 // 3. Create a metadata object
@@ -37,7 +49,7 @@ const ethersConfig = defaultConfig({
 // 5. Create a AppKit instance
 createWeb3Modal({
   ethersConfig,
-  chains: [mainnet],
+  chains: [filecoinCalibrationTest],
   projectId,
   enableAnalytics: true // Optional - defaults to your Cloud configuration
 })
