@@ -21,6 +21,9 @@ export default function Home() {
               Launch dApp
             </div>
           </Link>
+          <div className="mt-5">
+            <w3m-button />
+          </div>
         </div>
       </div>
       <Footer />
