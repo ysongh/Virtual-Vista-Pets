@@ -1,7 +1,21 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useWeb3ModalProvider, useWeb3ModalAccount } from "@web3modal/ethers/react";
+
 import Header from "./components/header";
 import Footer from "./components/footer";
-import Link from 'next/link'
+
 export default function Home() {
+  const router = useRouter();
+  const { address } = useWeb3ModalAccount();
+
+  useEffect(() => {
+    if (address) {
+      router.push("/defi");
+    }
+  }, [address]);
 
   return (
     <div className="w-full min-h-screen bg-blue-600">
@@ -16,11 +30,6 @@ export default function Home() {
             Cross the <span className="text-fun-pink">Filecoin</span> chasm{" "}
             with <span className="text-fun-pink">us.</span>
           </h1>
-          <Link href="/login">
-            <div className="text-black items-center inline-flex bg-white border-2 border-black duration-200 ease-in-out focus:outline-none hover:bg-black hover:shadow-none hover:text-white justify-center rounded-[20px] shadow-[5px_5px_black] text-center transform transition w-full lg:px-8 lg:py-2 lg:text-xl px-8 py-2">
-              Launch dApp
-            </div>
-          </Link>
           <div className="mt-5">
             <w3m-button />
           </div>
