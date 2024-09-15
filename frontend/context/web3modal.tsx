@@ -26,6 +26,14 @@ const filecoinCalibrationTest = {
   rpcUrl: filecoinCalibration.rpcUrls.default.http
 }
 
+const hardhat = {
+  chainId: 31337,
+  name: 'Hardhat',
+  currency: 'ETH',
+  explorerUrl: 'https://etherscan.io',
+  rpcUrl: 'http://127.0.0.1:8545'
+}
+
 // 3. Create a metadata object
 const metadata = {
   name: 'My Website',
@@ -49,7 +57,7 @@ const ethersConfig = defaultConfig({
 // 5. Create a AppKit instance
 createWeb3Modal({
   ethersConfig,
-  chains: [filecoinCalibrationTest],
+  chains: [filecoinCalibrationTest, hardhat],
   projectId,
   enableAnalytics: true // Optional - defaults to your Cloud configuration
 })
