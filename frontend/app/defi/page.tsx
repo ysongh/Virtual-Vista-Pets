@@ -7,12 +7,13 @@ import {
 import Connect from "./connect";
 import ContractIntegration from "./contractIntegration";
 import { useAccount,useBalance } from 'wagmi'
-
+import { useContracts } from "../../utils/useContracts";
 
 export default function Defi() {
 
   const { openAccountModal } = useAccountModal();
   const account = useAccount()
+  const { getCoinBalance } = useContracts();
 
   const {data} = useBalance({
     address: account.address,
@@ -29,6 +30,7 @@ export default function Defi() {
           <Connect /></>}
 
       </div>
+      <button onClick={() => getCoinBalance()}>Test</button>
 
       <Footer />
     </div>
