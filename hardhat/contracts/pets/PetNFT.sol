@@ -7,6 +7,7 @@ contract PetNFT is ERC721URIStorage {
   uint private _tokenIds;
 
   mapping(address => Pet) public userPet;
+  mapping(uint => string[]) public userPetPhotos;
 
   struct Pet {
     uint id;
@@ -20,5 +21,9 @@ contract PetNFT is ERC721URIStorage {
     _mint(_to, _tokenIds);
     _setTokenURI(_tokenIds, _tokenURI);
     userPet[msg.sender] = Pet(_tokenIds, _name);
+  }
+
+  function addPhoto(uint _id, string memory _url) public {
+    userPetPhotos[_id].push(_url);
   }
 }
