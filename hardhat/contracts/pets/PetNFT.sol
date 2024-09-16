@@ -26,4 +26,8 @@ contract PetNFT is ERC721URIStorage {
   function addPhoto(uint _id, string memory _url) public {
     userPetPhotos[_id].push(_url);
   }
+
+  function getPhotoFromPet(uint _id) public view returns (string[] memory) {
+    return userPetPhotos[_id];
+  }
 }
