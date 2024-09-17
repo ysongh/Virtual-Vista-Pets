@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
-import Link from 'next/link';
+import lighthouse from "@lighthouse-web3/sdk";
 
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
@@ -11,11 +11,31 @@ export default function CreatePet() {
   const [petType, setPetType] = useState('cat');
   const [petPersonality, setPetPersonality] = useState('');
   const [petPhoto, setPetPhoto] = useState(null);
+  const [photoURL, setPhotoURL] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
   const fileInputRef = useRef(null);
 
-  const handlePhotoChange = (e) => {
+  const handlePhotoChange = async (e) => {
     const file = e.target.files[0];
+
+    const apiKey = `${process.env.NEXT_PUBLIC_LIGHTHOUSE_API_KEY}`;
+
+    const dealParams = {
+        num_copies: 2, // Number of backup copies
+        repair_threshold: 28800, // When a storage sector is considered broken
+        renew_threshold: 240, // When your storage deal should be renewed
+        miner: ["t017840"], // Preferred miners
+        network: "calibration", // Network choice
+        deal_duration: 1756643958, // Deal duration in Epoch, you can use : https://www.epochconverter.com/
+    };
+
+    const uploadResponse = await lighthouse.upload(e.target.files, apiKey, dealParams);
+
+    if (uploadResponse) {
+        console.log(`https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`);
+        setPhotoURL(`https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`);
+    }
+
     if (file && file.type.substr(0, 5) === "image") {
       setPetPhoto(file);
       const reader = new FileReader();
@@ -104,6 +124,7 @@ export default function CreatePet() {
               </div>
             )}
           </div>
+          <p className='text-black'>{photoURL}</p>
           
           <button type="submit" className="w-full bg-yellow-400 text-purple-900 py-2 px-4 rounded-full font-bold hover:bg-yellow-300">
             Create Pet
