@@ -4,7 +4,7 @@ import { BrowserProvider, Contract } from "ethers";
 import PetNFTABI from "../artifacts/contracts/pets/PetNFT.sol/PetNFT.json";
 import CoinABI from "../artifacts/contracts/memecoin/CryptoCat.sol/CryptoCat.json";
 
-const PET_NFT_ADDRESS = "";
+const PET_NFT_ADDRESS = "0xA286c74018c639C146Ce2253884c6BAAe10d6ABa";
 const COIN_ADDRESS = "0x1c0a5ee0d55250921eD9500a758D1b9fdE06F9FD";
 
 export const useContracts = () => {
@@ -34,5 +34,15 @@ export const useContracts = () => {
     return CoinBalance;
   }
 
-  return { getCoinBalance };
+  const getPet = async () => {
+    const contract = await getPetNFTContract();
+    const Pet = await contract.getPet();
+    console.log(Pet);
+    return Pet;
+  }
+
+  return { 
+    getCoinBalance,
+    getPet
+  };
 }
