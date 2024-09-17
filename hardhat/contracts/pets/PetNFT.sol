@@ -12,6 +12,7 @@ contract PetNFT is ERC721URIStorage {
   struct Pet {
     uint id;
     string name;
+    string photoURL;
   }
 
   constructor() ERC721("Virtual Vista Pets", "VVP") {}
@@ -20,11 +21,15 @@ contract PetNFT is ERC721URIStorage {
     _tokenIds++;
     _mint(_to, _tokenIds);
     _setTokenURI(_tokenIds, _tokenURI);
-    userPet[msg.sender] = Pet(_tokenIds, _name);
+    userPet[msg.sender] = Pet(_tokenIds, _name, _tokenURI);
   }
 
   function addPhoto(uint _id, string memory _url) public {
     userPetPhotos[_id].push(_url);
+  }
+
+  function getPet() public view returns (Pet memory) {
+    return userPet[msg.sender];
   }
 
   function getPhotoFromPet(uint _id) public view returns (string[] memory) {
