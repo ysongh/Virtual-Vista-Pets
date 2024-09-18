@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     if (address) {
-      router.push("/defi");
+      router.push("/create-pet");
     }
   }, [address]);
 

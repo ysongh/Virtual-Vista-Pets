@@ -5,8 +5,11 @@ import lighthouse from "@lighthouse-web3/sdk";
 
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
+import { useContracts } from "@/utils/useContracts";
 
 export default function CreatePet() {
+  const { createAndMintPet } = useContracts();
+
   const [petName, setPetName] = useState('');
   const [petType, setPetType] = useState('cat');
   const [petPersonality, setPetPersonality] = useState('');
@@ -32,8 +35,9 @@ export default function CreatePet() {
     const uploadResponse = await lighthouse.upload(e.target.files, apiKey, dealParams);
 
     if (uploadResponse) {
-        console.log(`https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`);
-        setPhotoURL(`https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`);
+      const cidURL = `https://gateway.lighthouse.storage/ipfs/${uploadResponse.data.Hash}`;
+      console.log(cidURL);
+      setPhotoURL(cidURL);
     }
 
     if (file && file.type.substr(0, 5) === "image") {
@@ -49,10 +53,11 @@ export default function CreatePet() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send this data to your backend or blockchain
-    console.log({ petName, petType, petColor, petPersonality, petPhoto });
+    console.log({ petName, petType, petPersonality, petPhoto });
+    const tx = await createAndMintPet(photoURL, petName);
+    console.log(tx);
     alert('Pet created successfully!');
   };
 

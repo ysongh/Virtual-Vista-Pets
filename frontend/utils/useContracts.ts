@@ -41,8 +41,20 @@ export const useContracts = () => {
     return Pet;
   }
 
+  const createAndMintPet = async (url, name) => {
+    const contract = await getPetNFTContract();
+    const createTX = await contract.createAndMintPet(
+      address,
+      url,
+      name
+    );
+    await createTX.wait();
+    return createTX;
+  }
+
   return { 
     getCoinBalance,
-    getPet
+    getPet,
+    createAndMintPet
   };
 }
