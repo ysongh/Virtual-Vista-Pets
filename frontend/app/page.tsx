@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     if (address) {
-      router.push("/create-pet");
+      router.push("/pet/profile");
     }
   }, [address]);
 

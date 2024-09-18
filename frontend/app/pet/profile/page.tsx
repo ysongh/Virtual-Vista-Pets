@@ -2,26 +2,36 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
+import { useContracts } from "@/utils/useContracts";
 
 export default function PetProfile() {
+  const { getPet } = useContracts();
+  const { address } = useWeb3ModalAccount();
 
   const [pet, setPet] = useState(null);
 
   useEffect(() => {
+    if (address) fetchPet();
+  }, [address]);
+
+  const fetchPet = async () => {
+    const pet = await getPet();
+    console.log(pet);
     setPet({
-      id: '1',
-      name: 'Fluffy',
+      id: pet[0],
+      name: pet[1],
       type: 'cat',
       color: '#FFA500',
       personality: 'Playful and curious',
-      photoUrl: '/api/placeholder/300/300', // placeholder image
+      photoUrl: pet[2],
       level: 5,
       experience: 75,
     });
-  }, []);
+  }
 
   if (!pet) {
     return <div>Loading...</div>;
@@ -35,7 +45,7 @@ export default function PetProfile() {
         <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
-              <img className="h-48 w-full object-cover md:w-48" src={pet.photoUrl} alt={pet.name} />
+              <img className="w-full object-cover md:w-48" src={pet.photoUrl} alt={pet.name} />
             </div>
             <div className="p-8">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{pet.type}</div>
