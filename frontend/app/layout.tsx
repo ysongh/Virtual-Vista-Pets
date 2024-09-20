@@ -5,14 +5,14 @@ import "./globals.css";
 import { ContextProvider } from '.';
 import ReactQueryProvider from './ReactQueryProvider';
 import { AppKit } from '../context/web3modal'
+import { getMetadata } from "@/utils/getMetadata";
 
 const inter = Inter({ subsets: ["latin"] });
 
-// Websit Config
-export const metadata: Metadata = {
-  title: "FVM Frontend Starter Kit",
-  description: "Made with love by Team FIL-B",
-};
+export const metadata = getMetadata({
+  title: "Virtual Vista Pets",
+  description: "On-chain virtual pet game",
+});
 
 export default function RootLayout({
   children,
