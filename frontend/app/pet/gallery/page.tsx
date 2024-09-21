@@ -4,10 +4,14 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
+import { useContracts } from "@/utils/useContracts";
 import Loader from '@/app/components/loader';
 
 export default function PetPhotoGallery() {
+  const { getPet } = useContracts();
+  const { address } = useWeb3ModalAccount();
   const router = useRouter();
 
   const id = 1;
@@ -15,12 +19,26 @@ export default function PetPhotoGallery() {
   const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
+    if (address) fetchPet();
+  }, [address]);
+
+  const fetchPet = async () => {
+    const pet = await getPet();
+    console.log(pet);
+    setPet({
+      id: pet[0],
+      name: pet[1],
+      type: 'cat',
+      color: '#FFA500',
+      personality: 'Playful and curious',
+      photoUrl: pet[2],
+      level: 5,
+      experience: 75,
+    });
+  }
+
+  useEffect(() => {
     if (id) {
-      setPet({
-        id: '1',
-        name: 'Fluffy',
-        type: 'cat',
-      });
       
       setPhotos([
         { id: '1', url: '/api/placeholder/400/300', caption: 'Fluffy playing in the garden' },
@@ -68,7 +86,7 @@ export default function PetPhotoGallery() {
         </div>
 
         <div className="mt-8 text-center">
-          <button className="bg-yellow-400 text-purple-900 py-2 px-6 rounded-full text-lg font-semibold hover:bg-yellow-300" onClick={() => router.push("/pet/upload-photo/1")}>
+          <button className="bg-yellow-400 text-purple-900 py-2 px-6 rounded-full text-lg font-semibold hover:bg-yellow-300" onClick={() => router.push(`/pet/upload-photo/${pet?.id}`)}>
             Add New Photo
           </button>
         </div>
