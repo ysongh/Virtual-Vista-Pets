@@ -6,6 +6,8 @@ import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
+import Loader from '@/app/components/loader';
+
 import { useContracts } from "@/utils/useContracts";
 
 export default function PetProfile() {
@@ -34,7 +36,7 @@ export default function PetProfile() {
   }
 
   if (!pet) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (

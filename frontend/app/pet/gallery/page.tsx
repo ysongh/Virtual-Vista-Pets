@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
+import Loader from '@/app/components/loader';
+
 export default function PetPhotoGallery() {
   const id = 1;
   const [pet, setPet] = useState(null);
@@ -29,7 +31,7 @@ export default function PetPhotoGallery() {
   }, [id]);
 
   if (!pet) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
