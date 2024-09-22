@@ -41,6 +41,13 @@ export const useContracts = () => {
     return Pet;
   }
 
+  const getPetPhotos = async (id) => {
+    const contract = await getPetNFTContract();
+    const Photos = await contract.getPhotoFromPet(id);
+    console.log(Photos);
+    return Photos;
+  }
+
   const createAndMintPet = async (url, name) => {
     const contract = await getPetNFTContract();
     const createTX = await contract.createAndMintPet(
@@ -62,6 +69,7 @@ export const useContracts = () => {
   return { 
     getCoinBalance,
     getPet,
+    getPetPhotos,
     createAndMintPet,
     addPhotoForPet
   };

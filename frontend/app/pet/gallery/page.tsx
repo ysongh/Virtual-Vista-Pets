@@ -10,11 +10,10 @@ import { useContracts } from "@/utils/useContracts";
 import Loader from '@/app/components/loader';
 
 export default function PetPhotoGallery() {
-  const { getPet } = useContracts();
+  const { getPet, getPetPhotos } = useContracts();
   const { address } = useWeb3ModalAccount();
   const router = useRouter();
 
-  const id = 1;
   const [pet, setPet] = useState(null);
   const [photos, setPhotos] = useState([]);
 
@@ -35,21 +34,27 @@ export default function PetPhotoGallery() {
       level: 5,
       experience: 75,
     });
+    fetchPetPhotos(pet[0]);
   }
 
-  useEffect(() => {
-    if (id) {
+  const fetchPetPhotos = async (id) => {
+    const photos = await getPetPhotos(id);
+    setPhotos(photos);
+  }
+
+  // useEffect(() => {
+  //   if (id) {
       
-      setPhotos([
-        { id: '1', url: '/api/placeholder/400/300', caption: 'Fluffy playing in the garden' },
-        { id: '2', url: '/api/placeholder/400/300', caption: 'Fluffy\'s first birthday' },
-        { id: '3', url: '/api/placeholder/400/300', caption: 'Fluffy napping in the sun' },
-        { id: '4', url: '/api/placeholder/400/300', caption: 'Fluffy with a new toy' },
-        { id: '5', url: '/api/placeholder/400/300', caption: 'Fluffy exploring the virtual park' },
-        { id: '6', url: '/api/placeholder/400/300', caption: 'Fluffy making new friends' },
-      ]);
-    }
-  }, [id]);
+  //     setPhotos([
+  //       { id: '1', url: '/api/placeholder/400/300', caption: 'Fluffy playing in the garden' },
+  //       { id: '2', url: '/api/placeholder/400/300', caption: 'Fluffy\'s first birthday' },
+  //       { id: '3', url: '/api/placeholder/400/300', caption: 'Fluffy napping in the sun' },
+  //       { id: '4', url: '/api/placeholder/400/300', caption: 'Fluffy with a new toy' },
+  //       { id: '5', url: '/api/placeholder/400/300', caption: 'Fluffy exploring the virtual park' },
+  //       { id: '6', url: '/api/placeholder/400/300', caption: 'Fluffy making new friends' },
+  //     ]);
+  //   }
+  // }, [id]);
 
   if (!pet) {
     return <Loader />;
@@ -75,11 +80,11 @@ export default function PetPhotoGallery() {
         <h2 className="text-4xl font-bold mb-8 text-center">{pet.name}'s Photo Gallery</h2>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {photos.map(photo => (
-            <div key={photo.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src={photo.url} alt={photo.caption} className="w-full h-64 object-cover" />
+          {photos.map((photo, index) => (
+            <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src={photo} alt={"photo.caption"} className="w-full h-64 object-cover" />
               <div className="p-4">
-                <p className="text-gray-800 text-sm">{photo.caption}</p>
+                <p className="text-gray-800 text-sm">{"photo.caption"}</p>
               </div>
             </div>
           ))}
