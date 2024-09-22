@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from 'react';
+import { useParams } from "next/navigation";
 import lighthouse from "@lighthouse-web3/sdk";
 
 import Header from "@/app/components/header";
@@ -8,9 +9,9 @@ import Footer from "@/app/components/footer";
 import { useContracts } from "@/utils/useContracts";
 
 export default function UploadPhoto() {
-  const { createAndMintPet } = useContracts();
+  const { id } = useParams();
+  const { addPhotoForPet } = useContracts();
   
-  const [petPersonality, setPetPersonality] = useState('');
   const [petPhoto, setPetPhoto] = useState(null);
   const [photoURL, setPhotoURL] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
@@ -53,6 +54,7 @@ export default function UploadPhoto() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await addPhotoForPet(id, photoURL);
     alert('Photo uploaded successfully!');
   };
 

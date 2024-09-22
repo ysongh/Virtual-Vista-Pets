@@ -52,9 +52,17 @@ export const useContracts = () => {
     return createTX;
   }
 
+  const addPhotoForPet = async (id, url) => {
+    const contract = await getPetNFTContract();
+    const createTX = await contract.addPhoto(id, url);
+    await createTX.wait();
+    return createTX;
+  }
+
   return { 
     getCoinBalance,
     getPet,
-    createAndMintPet
+    createAndMintPet,
+    addPhotoForPet
   };
 }
