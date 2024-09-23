@@ -13,6 +13,7 @@ contract PetNFT is ERC721URIStorage {
     uint id;
     string name;
     string photoURL;
+    uint happiness;
   }
 
   struct Photo {
@@ -26,11 +27,13 @@ contract PetNFT is ERC721URIStorage {
     _tokenIds++;
     _mint(_to, _tokenIds);
     _setTokenURI(_tokenIds, _tokenURI);
-    userPet[msg.sender] = Pet(_tokenIds, _name, _tokenURI);
+    userPet[msg.sender] = Pet(_tokenIds, _name, _tokenURI, 0);
   }
 
-  function addPhoto(uint _id, string memory _url, string memory _caption) public {
-    userPetPhotos[_id].push(Photo(_url, _caption));
+  function addPhoto(string memory _url, string memory _caption) public {
+    Pet storage currentPet = userPet[msg.sender];
+    userPetPhotos[currentPet.id].push(Photo(_url, _caption));
+    currentPet.happiness += 10;
   }
 
   function getPet() public view returns (Pet memory) {
