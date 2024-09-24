@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from "next/navigation";
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 
 import Header from "@/app/components/header";
@@ -13,12 +14,19 @@ import { useContracts } from "@/utils/useContracts";
 export default function PetProfile() {
   const { getPet } = useContracts();
   const { address } = useWeb3ModalAccount();
+  const router = useRouter();
 
   const [pet, setPet] = useState(null);
 
   useEffect(() => {
     if (address) fetchPet();
   }, [address]);
+
+  useEffect(() => {
+    if (!pet?.name && !address) {
+      router.push("/create-pet");
+    }
+  }, [pet]);
 
   const fetchPet = async () => {
     const pet = await getPet();
