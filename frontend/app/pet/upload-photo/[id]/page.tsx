@@ -12,6 +12,7 @@ export default function UploadPhoto() {
   const { id } = useParams();
   const { addPhotoForPet } = useContracts();
   
+  const [caption, setCaption] = useState('');
   const [petPhoto, setPetPhoto] = useState(null);
   const [photoURL, setPhotoURL] = useState('');
   const [previewUrl, setPreviewUrl] = useState('');
@@ -54,7 +55,7 @@ export default function UploadPhoto() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addPhotoForPet(id, photoURL);
+    await addPhotoForPet(photoURL, caption);
     alert('Photo uploaded successfully!');
   };
 
@@ -65,6 +66,18 @@ export default function UploadPhoto() {
       <main className="container mx-auto p-6 pt-20">
         <h2 className="text-4xl font-bold mb-8 text-center">Upload Photo</h2>
         <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-lg">                    
+          <div className="mb-4">
+            <label htmlFor="petName" className="block text-gray-700 font-bold mb-2">Caption</label>
+            <input
+              type="text"
+              id="petName"
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none"
+              required
+            />
+          </div>
+
           <div className="mb-4">
             <label htmlFor="petPhoto" className="block text-gray-700 font-bold mb-2">Pet Photo</label>
             <input

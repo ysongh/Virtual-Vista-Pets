@@ -4,7 +4,7 @@ import { BrowserProvider, Contract } from "ethers";
 import PetNFTABI from "../artifacts/contracts/pets/PetNFT.sol/PetNFT.json";
 import CoinABI from "../artifacts/contracts/memecoin/CryptoCat.sol/CryptoCat.json";
 
-const PET_NFT_ADDRESS = "0xA286c74018c639C146Ce2253884c6BAAe10d6ABa";
+const PET_NFT_ADDRESS = "0x541903108Ea08Caa5f385ae8c53aA744719D283F";
 const COIN_ADDRESS = "0x1c0a5ee0d55250921eD9500a758D1b9fdE06F9FD";
 
 export const useContracts = () => {
@@ -59,9 +59,9 @@ export const useContracts = () => {
     return createTX;
   }
 
-  const addPhotoForPet = async (id, url) => {
+  const addPhotoForPet = async (url, caption) => {
     const contract = await getPetNFTContract();
-    const createTX = await contract.addPhoto(id, url);
+    const createTX = await contract.addPhoto(url, caption);
     await createTX.wait();
     return createTX;
   }

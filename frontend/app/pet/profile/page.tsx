@@ -30,6 +30,7 @@ export default function PetProfile() {
       color: '#FFA500',
       personality: 'Playful and curious',
       photoUrl: pet[2],
+      happiness:  pet[3],
       level: 5,
       experience: 75,
     });
@@ -52,11 +53,10 @@ export default function PetProfile() {
             <div className="p-8">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{pet.type}</div>
               <h2 className="block mt-1 text-lg leading-tight font-medium text-black">{pet.name}</h2>
-              <p className="mt-2 text-gray-500">Level: {pet.level}</p>
+              <p className="mt-2 text-gray-500">Happiness: {pet.happiness.toString()}</p>
               <div className="mt-2 w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{width: `${pet.experience}%`}}></div>
+                <div className="bg-blue-600 h-2.5 rounded-full" style={{width: `${pet.happiness.toString()}%`}}></div>
               </div>
-              <p className="mt-2 text-gray-500">Experience: {pet.experience}%</p>
               <p className="mt-2 text-gray-500">Personality: {pet.personality}</p>
               <div className="mt-4 flex items-center">
                 <span className="mr-2 text-gray-500">Color:</span>

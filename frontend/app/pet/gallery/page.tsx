@@ -82,9 +82,9 @@ export default function PetPhotoGallery() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {photos.map((photo, index) => (
             <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <img src={photo} alt={"photo.caption"} className="w-full h-64 object-cover" />
+              <img src={photo.photoURL} alt={"photo.caption"} className="w-full h-64 object-cover" />
               <div className="p-4">
-                <p className="text-gray-800 text-sm">{"photo.caption"}</p>
+                <p className="text-gray-800 text-sm">{photo.caption}</p>
               </div>
             </div>
           ))}
