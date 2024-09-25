@@ -28,10 +28,10 @@ const ImageItem = ({ url, index, totalImages, radius, onClick, expandedIndex }) 
     
     if (isExpanded) {
       mesh.current.position.lerp(new THREE.Vector3(0, 0, 2), 0.1);
-      mesh.current.scale.lerp(new THREE.Vector3(2, 2, 1), 0.1);
+      mesh.current.scale.lerp(new THREE.Vector3(5, 5, 1), 0.1);
       mesh.current.rotation.y = 0;  // Keep expanded image facing the camera
     } else {
-      const targetScale = expandedIndex !== null ? 0.5 : 1;
+      const targetScale = expandedIndex !== null ? 0.5 : 2;
       mesh.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, 1), 0.1);
 
       // Generate smooth random movement using Perlin noise
