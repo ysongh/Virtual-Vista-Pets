@@ -20,7 +20,10 @@ const ImageItem = ({ url, index, totalImages, radius, onClick, expandedIndex }) 
     z: Math.random() * 1000
   }), []);
 
-  const speedFactor = 0.01;
+  const speedFactor = 0.05;
+
+  // Function to clamp a value between a min and max
+  const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 
   useFrame((state) => {
     const isExpanded = expandedIndex === index;
@@ -31,7 +34,7 @@ const ImageItem = ({ url, index, totalImages, radius, onClick, expandedIndex }) 
       mesh.current.scale.lerp(new THREE.Vector3(5, 5, 1), 0.1);
       mesh.current.rotation.y = 0;  // Keep expanded image facing the camera
     } else {
-      const targetScale = expandedIndex !== null ? 0.5 : 2;
+      const targetScale = expandedIndex !== null ? 0.5 : 1;
       mesh.current.scale.lerp(new THREE.Vector3(targetScale, targetScale, 1), 0.1);
 
       // Generate smooth random movement using Perlin noise
@@ -39,11 +42,18 @@ const ImageItem = ({ url, index, totalImages, radius, onClick, expandedIndex }) 
       const noiseY = noise2D(time * speedFactor + offsets.y, 0) * radius * 0.5;
       const noiseZ = noise2D(time * speedFactor + offsets.z, 0) * radius * 0.5;
 
-      const targetX = noiseX * radius;
-      const targetY = noiseY * radius;
-      const targetZ = noiseZ * radius;
+      // Calculate the maximum allowed position based on viewport and current scale
+      const maxX = (viewport.width / 2) - (mesh.current.scale.x / 2);
+      const maxY = (viewport.height / 2) - (mesh.current.scale.y / 2);
+      const maxZ = radius; // Limit Z movement to the radius
 
-      mesh.current.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.02);
+      // Clamp the target position within the visible area
+      const targetX = clamp(noiseX, -maxX, maxX);
+      const targetY = clamp(noiseY, -maxY, maxY);
+      const targetZ = clamp(noiseZ, -maxZ, maxZ);
+
+      // Slow down the lerp speed
+      mesh.current.position.lerp(new THREE.Vector3(targetX, targetY, targetZ), 0.01);
       
       // Make the image face the camera
       mesh.current.lookAt(state.camera.position);
@@ -66,7 +76,8 @@ const ImageItem = ({ url, index, totalImages, radius, onClick, expandedIndex }) 
 
 const Scene = ({ images }) => {
   const [expandedIndex, setExpandedIndex] = useState(null);
-  const radius = 5;
+  const { viewport } = useThree();
+  const radius = Math.min(viewport.width, viewport.height) * 0.8; // Adjust the multiplier as needed
 
   const handleImageClick = useCallback((index) => {
     setExpandedIndex(prevIndex => prevIndex === index ? null : index);
@@ -104,7 +115,7 @@ const ExpandableGallery = () => {
   ];
 
   return (
-    <div className="w-full h-screen bg-gray-100">
+    <div className="w-full h-screen bg-blue-100">
       <Canvas camera={{ position: [0, 0, 10], fov: 60 }}>
         <Scene images={images} />
       </Canvas>
