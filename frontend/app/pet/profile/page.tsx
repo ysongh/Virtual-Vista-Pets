@@ -52,7 +52,8 @@ export default function PetProfile() {
     <div className="min-h-screen bg-gradient-to-r bg-blue-600 text-white font-sans">
       <Header />
 
-      <main className="container mx-auto p-6 pt-32">
+      <main className="container mx-auto p-6 pt-20">
+        <h1 className='text-center text-4xl my-5'>Your Pet</h1>
         <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
           <div className="md:flex">
             <div className="md:flex-shrink-0">
