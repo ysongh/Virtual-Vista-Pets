@@ -10,7 +10,7 @@ const Header = () => {
     <div className="fixed top-0 w-full bg-blue-600 h-20 flex items-center z-10">
       <div className="relative left-4">
         <Link href="/">
-          <p className="text-white text-2xl">Virtual Vista Pets</p>
+          <p className="text-white text-3xl font-bold">Virtual Vista Pets</p>
         </Link>
       </div>
       {isConnected && <div className="fixed right-6">
