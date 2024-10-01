@@ -15,6 +15,11 @@ const Header = () => {
       </div>
       {isConnected && <div className="fixed right-6">
         <div className="flex flex-row gap-8 items-center">
+          <Link href="/pet/profile">
+            <div className="text-white font-bold">
+              Profile
+            </div>
+          </Link>
           <Link href="/defi">
             <div className="text-white font-bold">
               DeFi
