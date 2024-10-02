@@ -38,6 +38,11 @@ contract PetNFT is ERC721URIStorage {
     currentPet.happiness += 10;
   }
 
+  function playPet() public {
+    Pet storage currentPet = userPet[msg.sender];
+    currentPet.happiness += 5;
+  }
+
   function getPet() public view returns (Pet memory) {
     return userPet[msg.sender];
   }
