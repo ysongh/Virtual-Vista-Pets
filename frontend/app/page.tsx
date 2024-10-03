@@ -1,12 +1,10 @@
 "use client";
 
-import React, { useRef, useMemo, useEffect, Suspense } from 'react'
-import { useRouter } from "next/navigation"
+import React, { useRef, useMemo, Suspense } from 'react'
 import dynamic from 'next/dynamic'
 import * as THREE from 'three'
 import { useFrame, useLoader } from '@react-three/fiber'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 const DynamicCanvas = dynamic(() => import('@react-three/fiber').then((mod) => mod.Canvas), {
   ssr: false,
@@ -71,15 +69,6 @@ function Scene() {
 }
 
 export default function LandingPage() {
-  const router = useRouter();
-  const { address } = useWeb3ModalAccount();
-
-  useEffect(() => {
-    if (address) {
-      router.push("/pet/profile");
-    }
-  }, [address]);
-
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <div style={{ position: 'fixed', width: '100%', height: '100%' }}>
