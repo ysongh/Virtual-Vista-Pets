@@ -4,6 +4,8 @@ pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract PetNFT is ERC721URIStorage {
+  error PetNFT__NotEnoughToFeed();
+
   uint private _tokenIds;
 
   mapping(address => Pet) public userPet;
@@ -40,7 +42,16 @@ contract PetNFT is ERC721URIStorage {
 
   function playPet() public {
     Pet storage currentPet = userPet[msg.sender];
-    currentPet.happiness += 5;
+    currentPet.happiness += 1;
+  }
+
+  function feedPet() public payable {
+    if (msg.value >= 0.00001 ether) {
+      revert PetNFT__NotEnoughToFeed();
+    }
+
+    Pet storage currentPet = userPet[msg.sender];
+    currentPet.happiness += 10;
   }
 
   function getPet() public view returns (Pet memory) {
