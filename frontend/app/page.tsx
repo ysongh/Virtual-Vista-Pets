@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useMemo, Suspense } from 'react'
+import { useRouter } from "next/navigation"
 import dynamic from 'next/dynamic'
 import * as THREE from 'three'
 import { useFrame, useLoader } from '@react-three/fiber'
@@ -69,6 +70,8 @@ function Scene() {
 }
 
 export default function LandingPage() {
+  const router = useRouter();
+
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <div style={{ position: 'fixed', width: '100%', height: '100%' }}>
@@ -96,6 +99,9 @@ export default function LandingPage() {
             <p className="text-xl mb-8">Raise, train, and photograph your unique blockchain pets in stunning virtual landscapes!</p>
             <center>
               <w3m-button />
+              <button className="bg-yellow-400 text-purple-900 py-2 px-4 rounded-full font-bold hover:bg-yellow-300" onClick={() => router.push("/pet/profile")}>
+                Dashboard
+              </button>
             </center>
           </section>
 
