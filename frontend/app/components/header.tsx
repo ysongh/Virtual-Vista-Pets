@@ -1,10 +1,10 @@
 "use client";
 
-import Link from 'next/link'
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import Link from 'next/link';
+import { useAppKitAccount } from "@reown/appkit/react";
 
 const Header = () => {
-  const { isConnected } = useWeb3ModalAccount();
+  const { isConnected } = useAppKitAccount();
 
   return (
     <div className="fixed top-0 w-full bg-blue-600 h-20 flex items-center z-10">

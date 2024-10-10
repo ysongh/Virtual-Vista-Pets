@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
-import { useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { useAppKitAccount } from "@reown/appkit/react";
 
 import Header from "@/app/components/header";
 import Footer from "@/app/components/footer";
@@ -13,7 +13,7 @@ import { useContracts } from "@/utils/useContracts";
 
 export default function PetProfile() {
   const { getPet } = useContracts();
-  const { address } = useWeb3ModalAccount();
+  const { address } = useAppKitAccount();
   const router = useRouter();
 
   const [pet, setPet] = useState(null);

@@ -1,4 +1,4 @@
-import { useWeb3ModalProvider, useWeb3ModalAccount } from "@web3modal/ethers/react";
+import { useAppKitProvider, useAppKitAccount } from "@reown/appkit/react";
 import { BrowserProvider, Contract } from "ethers";
 
 import PetNFTABI from "../artifacts/contracts/pets/PetNFT.sol/PetNFT.json";
@@ -8,8 +8,8 @@ const PET_NFT_ADDRESS = "0x541903108Ea08Caa5f385ae8c53aA744719D283F";
 const COIN_ADDRESS = "0x1c0a5ee0d55250921eD9500a758D1b9fdE06F9FD";
 
 export const useContracts = () => {
-  const { address, chainId, isConnected } = useWeb3ModalAccount();
-  const { walletProvider } = useWeb3ModalProvider();
+  const { address, isConnected } = useAppKitAccount();
+  const { walletProvider } = useAppKitProvider();
 
   const initializeEthers = async () => {
     const ethersProvider = new BrowserProvider(walletProvider as any)
