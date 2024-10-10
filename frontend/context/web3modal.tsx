@@ -7,7 +7,7 @@ import {
 } from 'wagmi/chains'
 
 // 1. Get projectId from https://cloud.walletconnect.com
-const projectId = 'YOUR_PROJECT_ID'
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID
 
 // 2. Set chains
 const mainnet = {
