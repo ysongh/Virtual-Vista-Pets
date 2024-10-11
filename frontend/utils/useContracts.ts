@@ -1,5 +1,5 @@
 import { useAppKitProvider, useAppKitAccount } from "@reown/appkit/react";
-import { BrowserProvider, Contract } from "ethers";
+import { BrowserProvider, Contract, ethers } from "ethers";
 
 import PetNFTABI from "../artifacts/contracts/pets/PetNFT.sol/PetNFT.json";
 import CoinABI from "../artifacts/contracts/memecoin/CryptoCat.sol/CryptoCat.json";
@@ -9,10 +9,10 @@ const COIN_ADDRESS = "0x1c0a5ee0d55250921eD9500a758D1b9fdE06F9FD";
 
 export const useContracts = () => {
   const { address, isConnected } = useAppKitAccount();
-  const { walletProvider } = useAppKitProvider();
+  const { walletProvider } = useAppKitProvider('eip155');
 
   const initializeEthers = async () => {
-    const ethersProvider = new BrowserProvider(walletProvider as any)
+    const ethersProvider = new ethers.BrowserProvider(walletProvider as any)
     const signer = await ethersProvider.getSigner()
     return { ethersProvider, signer };
   };
