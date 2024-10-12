@@ -77,6 +77,7 @@ export default function LandingPage() {
 
   const openWallet = async () => {
     await open();
+    router.push("/pet/profile");
   }
 
   return (
