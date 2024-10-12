@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic'
 import * as THREE from 'three'
 import { useFrame, useLoader } from '@react-three/fiber'
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
+import { useAppKit } from '@reown/appkit/react';
 
 const DynamicCanvas = dynamic(() => import('@react-three/fiber').then((mod) => mod.Canvas), {
   ssr: false,
@@ -72,6 +73,12 @@ function Scene() {
 export default function LandingPage() {
   const router = useRouter();
 
+  const { open } = useAppKit();
+
+  const openWallet = async () => {
+    await open();
+  }
+
   return (
     <div style={{ width: '100vw', height: '100vh', overflow: 'hidden', position: 'relative' }}>
       <div style={{ position: 'fixed', width: '100%', height: '100%' }}>
@@ -98,7 +105,9 @@ export default function LandingPage() {
             <h2 className="text-5xl font-bold mb-4">Capture the Magic of Digital Companions</h2>
             <p className="text-xl mb-8">Raise, train, and photograph your unique blockchain pets in stunning virtual landscapes!</p>
             <center>
-              <w3m-button />
+              <button className="bg-yellow-400 text-purple-900 py-2 px-4 rounded-full font-bold hover:bg-yellow-300" onClick={openWallet}>
+                Connect Wallet
+              </button>
               <button className="bg-yellow-400 text-purple-900 py-2 px-4 rounded-full font-bold hover:bg-yellow-300" onClick={() => router.push("/pet/profile")}>
                 Dashboard
               </button>
