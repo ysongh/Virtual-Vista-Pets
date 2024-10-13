@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useRef, useMemo, Suspense } from 'react'
-import { useRouter } from "next/navigation"
-import dynamic from 'next/dynamic'
-import * as THREE from 'three'
-import { useFrame, useLoader } from '@react-three/fiber'
+import React, { useRef, useMemo, Suspense } from 'react';
+import { useRouter } from "next/navigation";
+import dynamic from 'next/dynamic';
+import * as THREE from 'three';
+import { useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 import { useAppKit } from '@reown/appkit/react';
 
